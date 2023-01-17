@@ -8,7 +8,9 @@
 <body>
 <div id="device"></div>
 <script>
-    init(document.getElementById('device'));
+    window.addEventListener('load',(ev) => {
+        init(document.getElementById('device'));
+    });
 </script>
 </body>
 </html>
