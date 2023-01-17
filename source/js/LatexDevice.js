@@ -5,6 +5,7 @@ function init(el) {
 }
 function Device(props) {
     const { el } = props;
+    this.calculation = new Calculation({ value : 0 });
     this.el = el;
     this.device = document.createElement('div');
     this.el.appendChild(this.device);
@@ -14,10 +15,23 @@ Device.prototype.render = function() {
     const displayDiv = document.createElement('div');
     this.device.appendChild(displayDiv);
     this.display = new Display({ el : displayDiv });
+    this.display.setText(this.calculation.getText());
     for(let i = 0; i < 10; i++) {
         const buttonArea = document.createElement('div');
         this.device.appendChild(buttonArea);
-        new Button({el : buttonArea, value : i });
+        new Button({el : buttonArea, value : i, clickEvent : (props) => {
+            const { value, button, event } = props;
+            this.calculation.inputNumber(value);
+            this.display.setText(this.calculation.getText());
+        }});
+    }
+    {
+        const buttonArea = document.createElement('div');
+        this.device.appendChild(buttonArea);
+        new Button({el : buttonArea, value : 'c', clickEvent : (props) => {
+            this.calculation.clear();
+            this.display.setText(this.calculation.getText());
+        }});
     }
 }
 
@@ -42,6 +56,6 @@ function Button(props) {
     el.appendChild(this.el);
     this.el.innerText = value;
     this.el.addEventListener('click',(ev) => {
-        alert(value);
+        clickEvent({ 'value' : value, 'button' : this, 'event' : ev });
     });
 }
