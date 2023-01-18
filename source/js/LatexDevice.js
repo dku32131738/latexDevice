@@ -29,9 +29,18 @@ Device.prototype.render = function() {
         const buttonArea = document.createElement('div');
         this.device.appendChild(buttonArea);
         new Button({el : buttonArea, value : 'c', clickEvent : (props) => {
-            this.calculation.clear();
-            this.display.setText(this.calculation.getText());
-        }});
+                this.calculation.clear();
+                this.display.setText(this.calculation.getText());
+            }
+        });
+    }
+    {
+        const buttonArea = document.createElement('div');
+        this.device.appendChild(buttonArea);
+        new Button({el : buttonArea, value : '+', clickEvent : (props) => {
+
+            }
+        });
     }
 }
 
