@@ -38,7 +38,44 @@ Device.prototype.render = function() {
         const buttonArea = document.createElement('div');
         this.device.appendChild(buttonArea);
         new Button({el : buttonArea, value : '+', clickEvent : (props) => {
-
+                this.calculation.inputOperator('plus');
+                this.display.setPrevDisplay(this.calculation.getValue());
+            }
+        });
+    }
+    {
+        const buttonArea = document.createElement('div');
+        this.device.appendChild(buttonArea);
+        new Button({el : buttonArea, value : '-', clickEvent : (props) => {
+                this.calculation.inputOperator('minus');
+                this.display.setPrevDisplay(this.calculation.getValue());
+            }
+        });
+    }
+    {
+        const buttonArea = document.createElement('div');
+        this.device.appendChild(buttonArea);
+        new Button({el : buttonArea, value : '*', clickEvent : (props) => {
+                this.calculation.inputOperator('multiple');
+                this.display.setPrevDisplay(this.calculation.getValue());
+            }
+        });
+    }
+    {
+        const buttonArea = document.createElement('div');
+        this.device.appendChild(buttonArea);
+        new Button({el : buttonArea, value : '/', clickEvent : (props) => {
+                this.calculation.inputOperator('divide');
+                this.display.setPrevDisplay(this.calculation.getValue());
+            }
+        });
+    }
+    {
+        const buttonArea = document.createElement('div');
+        this.device.appendChild(buttonArea);
+        new Button({el : buttonArea, value : '=', clickEvent : (props) => {
+                this.calculation.push();
+                this.display.setText(this.calculation.value);
             }
         });
     }
@@ -49,6 +86,9 @@ function Display(props) {
     this.el = document.createElement('input');
     this.el.type = 'text';
     el.appendChild(this.el);
+    this.prevDisplay = document.createElement('input');
+    this.prevDisplay.type = 'text';
+    el.appendChild(this.prevDisplay);
 }
 
 Display.prototype.setText =  function(text) {
@@ -57,6 +97,10 @@ Display.prototype.setText =  function(text) {
 
 Display.prototype.getText = function() {
     return this.el.value;
+}
+
+Display.prototype.setPrevDisplay = function(value) {
+    this.prevDisplay.value = value;
 }
 
 function Button(props) {

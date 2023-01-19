@@ -19,27 +19,44 @@ Calculation.prototype.getText = function() {
     return this.text;
 }
 
+Calculation.prototype.getValue = function() {
+    return this.value;
+}
+
+Calculation.prototype.getPrevValue = function() {
+    return this.prevValue;
+}
+
 Calculation.prototype.clear = function() {
     this.text = '0';
     this.value = 0;
 }
 
 Calculation.prototype.push = function () {
-    this.value = Number(this.text);
-    if(this.operation !== null) {
-
+    const inputNum = Number(this.text);
+    if(this.operator !== null) {
+        this.calculate(inputNum);
+    }else {
+        this.value = inputNum;
     }
+    this.text = '';
 }
 
-Calculation.prototype.plus = function () {
+Calculation.prototype.inputOperator = function (operator) {
     this.push();
-    this.operation = 'plus';
+    this.operator = operator;
 }
 
-Calculation.prototype.calculate = function (prevValue,operator,value) {
-    let result = 0;
-    if(operator === 'plus') {
-        result = prevValue + value;
+Calculation.prototype.calculate = function (inputNum) {
+    if(this.operator === 'plus') {
+        this.value = this.value + inputNum;
+    }else if(this.operator === 'minus') {
+        this.value = this.value - inputNum;
+    }else if(this.operatior === 'multiple') {
+        this.value = this.value * inputNum;
+    }else if(this.operatior === 'divide'){
+        this.value = this.value / inputNum;
+    }else {
+        throw new Error("Wrong Operator");
     }
-    return result;
 }
