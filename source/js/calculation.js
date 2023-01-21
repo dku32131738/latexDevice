@@ -3,10 +3,12 @@ function Calculation(props) {
     this.value = (value??0);
     this.text = String(value);
     this.operator = null;
-    this.prevValue = 0;
 }
 
 Calculation.prototype.inputNumber = function(number) {
+    if(number === '.' && this.text.includes('.')){
+        return;
+    }
     this.text = this.text + String(number);
 }
 
@@ -23,9 +25,6 @@ Calculation.prototype.getValue = function() {
     return this.value;
 }
 
-Calculation.prototype.getPrevValue = function() {
-    return this.prevValue;
-}
 
 Calculation.prototype.clear = function() {
     this.text = '0';
@@ -39,6 +38,7 @@ Calculation.prototype.push = function () {
     }else {
         this.value = inputNum;
     }
+    this.operator = null;
     this.text = '';
 }
 
@@ -57,6 +57,6 @@ Calculation.prototype.calculate = function (inputNum) {
     }else if(this.operatior === 'divide'){
         this.value = this.value / inputNum;
     }else {
-        throw new Error("Wrong Operator");
+        this.value = this.value;
     }
 }
