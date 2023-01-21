@@ -27,7 +27,7 @@ Calculation.prototype.getValue = function() {
 
 
 Calculation.prototype.clear = function() {
-    this.text = '0';
+    this.text = '';
     this.value = 0;
 }
 
@@ -52,9 +52,12 @@ Calculation.prototype.calculate = function (inputNum) {
         this.value = this.value + inputNum;
     }else if(this.operator === 'minus') {
         this.value = this.value - inputNum;
-    }else if(this.operatior === 'multiple') {
+    }else if(this.operator === 'multiple') {
         this.value = this.value * inputNum;
-    }else if(this.operatior === 'divide'){
+    }else if(this.operator === 'divide'){
+        if(inputNum === 0) {
+            return;
+        }
         this.value = this.value / inputNum;
     }else {
         this.value = this.value;

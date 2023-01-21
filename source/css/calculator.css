@@ -24,6 +24,19 @@
     overflow: hidden;
     overflow-wrap: break-word;
   }
+
+  .display .process {
+    width: 80%;
+    float: left;
+    text-align: right;
+  }
+
+  .display .operator {
+    width: 20%;
+    float: right;
+    text-align: right;
+  }
+
   .calculator .buttons {
     background-color: #ffffff;
     width: 100%;
